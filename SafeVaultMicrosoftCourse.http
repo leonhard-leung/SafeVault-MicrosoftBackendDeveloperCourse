@@ -1,6 +1,57 @@
+
 @SafeVaultMicrosoftCourse_HostAddress = http://localhost:5294
 
-GET {{SafeVaultMicrosoftCourse_HostAddress}}/weatherforecast/
-Accept: application/json
+### Create a user successfully
+POST {{SafeVaultMicrosoftCourse_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+  "username": "leo_dev",
+  "email": "leo@example.com"
+}
+
+###
+
+### Reject an invalid username (SQL injection attempt)
+POST {{SafeVaultMicrosoftCourse_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+  "username": "admin' OR '1'='1",
+  "email": "attacker@example.com"
+}
+
+###
+
+### Reject an XSS payload in the username
+POST {{SafeVaultMicrosoftCourse_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+  "username": "<script>alert('xss')</script>",
+  "email": "attacker@example.com"
+}
+
+###
+
+### Reject an invalid email
+POST {{SafeVaultMicrosoftCourse_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+  "username": "valid_user",
+  "email": "not-an-email"
+}
+
+###
+
+### Reject a duplicate username
+POST {{SafeVaultMicrosoftCourse_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+  "username": "leo_dev",
+  "email": "another@example.com"
+}
 
 ###
