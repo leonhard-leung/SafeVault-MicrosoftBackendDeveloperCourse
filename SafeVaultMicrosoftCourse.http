@@ -1,57 +1,41 @@
 
 @SafeVaultMicrosoftCourse_HostAddress = http://localhost:5294
 
-### Create a user successfully
-POST {{SafeVaultMicrosoftCourse_HostAddress}}/api/users
+### Register a new user
+POST {{SafeVaultMicrosoftCourse_HostAddress}}/api/auth/register
 Content-Type: application/json
 
 {
   "username": "leo_dev",
-  "email": "leo@example.com"
+  "email": "leo@example.com",
+  "password": "MyStrongPass123!"
 }
 
 ###
 
-### Reject an invalid username (SQL injection attempt)
-POST {{SafeVaultMicrosoftCourse_HostAddress}}/api/users
-Content-Type: application/json
-
-{
-  "username": "admin' OR '1'='1",
-  "email": "attacker@example.com"
-}
-
-###
-
-### Reject an XSS payload in the username
-POST {{SafeVaultMicrosoftCourse_HostAddress}}/api/users
-Content-Type: application/json
-
-{
-  "username": "<script>alert('xss')</script>",
-  "email": "attacker@example.com"
-}
-
-###
-
-### Reject an invalid email
-POST {{SafeVaultMicrosoftCourse_HostAddress}}/api/users
-Content-Type: application/json
-
-{
-  "username": "valid_user",
-  "email": "not-an-email"
-}
-
-###
-
-### Reject a duplicate username
-POST {{SafeVaultMicrosoftCourse_HostAddress}}/api/users
+### Login as a registered user
+POST {{SafeVaultMicrosoftCourse_HostAddress}}/api/auth/login
 Content-Type: application/json
 
 {
   "username": "leo_dev",
-  "email": "another@example.com"
+  "password": "MyStrongPass123!"
 }
+
+> {%
+    client.global.set("accessToken", response.body.accessToken);
+%}
+
+###
+
+### Access the authenticated user's profile
+GET {{SafeVaultMicrosoftCourse_HostAddress}}/api/users/me
+Authorization: Bearer {{accessToken}}
+
+###
+
+### Access the admin dashboard
+GET {{SafeVaultMicrosoftCourse_HostAddress}}/api/admin/dashboard
+Authorization: Bearer {{accessToken}}
 
 ###

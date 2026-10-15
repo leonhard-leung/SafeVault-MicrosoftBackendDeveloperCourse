@@ -1,13 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-    </PropertyGroup>
+      <UserSecretsId>baf6630c-50de-4877-a027-4ef6c964925c</UserSecretsId>
+  </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12"/>
+        <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.13" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
         <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.13" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
         <PackageReference Include="NUnit" Version="5.0.0" />
