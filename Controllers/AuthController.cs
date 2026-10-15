@@ -62,9 +62,9 @@ public class AuthController : ControllerBase
                 $"/api/users/{userId}",
                 new
                 {
+                    userId,
                     username,
                     email,
-                    passwordHash,
                     role = "user"
                 });
         }
